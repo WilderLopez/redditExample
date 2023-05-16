@@ -13,9 +13,9 @@ class NetworkManager {
     
     let baseUrl = "https://www.reddit.com/"
     
-    func getTopPosts(for query: String, page: Int, limit: Int, completion: @escaping (Result<[Post], Error>) -> Void) {
+    func getTopPosts(for query: String, after: String, limit: Int, completion: @escaping (Result<[Post], Error>) -> Void) {
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let url = URL(string: "\(baseUrl)\(trimmedQuery.count == 0 ? "" : "r/\(trimmedQuery)")/top.json?limit=\(limit)&page=\(page)") else {
+        guard let url = URL(string: "\(baseUrl)\(trimmedQuery.count == 0 ? "" : "r/\(trimmedQuery)")/top.json?limit=\(limit)&after=\(after)&count=0") else {
             preconditionFailure("Failed to construct search URL for query: \(query)")
         }
         

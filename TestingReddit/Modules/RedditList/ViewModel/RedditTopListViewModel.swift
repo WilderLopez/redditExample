@@ -10,34 +10,52 @@ import UIKit
 
 protocol RedditTopListViewModelProtocol : AnyObject {
     func didResponseTopList(posts: [Post], isRefreshed: Bool)
+    
+    func saveData(success: Bool)
+    func didResponseLocal(posts: [Post])
 }
 
 class RedditTopListViewModel {
-    private var currentPage = 0
     var delegate: RedditTopListViewModelProtocol?
+    private var uniquePost : [Post] = []
     
     init(delegate: RedditTopListViewModelProtocol) {
         self.delegate = delegate
     }
     
+    func saveToCoreData(post: [Post]) {
+        CoreDataManager.shared.saveAllPosts(post) { [weak self] response in
+            self?.delegate?.saveData(success: response)
+        }
+    }
+    
+    func loadLocalPost() {
+        let posts : [Post] = CoreDataManager.shared.fetchAllPosts()
+        delegate?.didResponseLocal(posts: posts)
+    }
+    
     ///Restart the first page 0
     func refreshRedditTopList() {
-        currentPage = 0
         loadRedditTopList(needRefresh: true)
     }
     
     
-    func requestNextRedditTopList() {
-        loadRedditTopList(page: currentPage)
-        currentPage += 1
+    func requestServiceRedditTopList(after: String = "") {
+        loadRedditTopList(after: after)
     }
     
-    private func loadRedditTopList(page: Int = 0, needRefresh: Bool = false) {
-        debugPrint("request page \(page)")
-        NetworkManager.shared.getTopPosts(for: "", page: page, limit: 50) { [weak self] result in
+    private func loadRedditTopList(after: String = "", needRefresh: Bool = false) {
+
+        NetworkManager.shared.getTopPosts(for: "all",after: after, limit: 10) { [weak self] result in
+            guard let self else { return }
+            
             switch result {
             case .success(let posts):
-                self?.delegate?.didResponseTopList(posts: posts, isRefreshed: needRefresh)
+//                let existingPostIDs = self.uniquePost.map({ $0.id })
+//                let newPosts = posts.filter { !existingPostIDs.contains($0.id) }
+//                    
+//                self.uniquePost.append(contentsOf: newPosts)
+                self.delegate?.didResponseTopList(posts: posts, isRefreshed: needRefresh)
                 
             case .failure(let error):
                 
@@ -45,6 +63,8 @@ class RedditTopListViewModel {
             }
         }
     }
+    
+    
     
     
     

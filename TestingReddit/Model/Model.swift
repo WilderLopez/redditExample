@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Post: Identifiable {
+struct Post: Identifiable, Hashable {
     var id: String
     var title: String
     var author: String
@@ -18,6 +18,7 @@ struct Post: Identifiable {
     var subredditNamePrefixed: String
     var created: TimeInterval
     var numComments: Int
+    var name: String
 }
 
 
@@ -33,6 +34,7 @@ extension Post: Decodable {
         case data
         case created = "created"
         case numComments = "num_comments"
+        case name
     }
     
     init(from decoder: Decoder) throws {
@@ -44,15 +46,22 @@ extension Post: Decodable {
         author = try dataContainer.decode(String.self, forKey: .author)
         url = try dataContainer.decode(String.self, forKey: .url)
         
-        let thumbnailString = try dataContainer.decode(String.self, forKey: .thumbnailUrl)
-        thumbnailUrl = URL(string: thumbnailString)
+        if let thumbnailString = try? dataContainer.decode(String.self, forKey: .thumbnailUrl) {
+            thumbnailUrl = URL(string: thumbnailString)
+        } else {
+            thumbnailUrl = nil
+        }
         
-        let fullImageString = try dataContainer.decode(String.self, forKey: .fullImageUrl)
-        fullImageUrl = URL(string: fullImageString)
+        if let fullImageString = try? dataContainer.decode(String.self, forKey: .fullImageUrl) {
+            fullImageUrl = URL(string: fullImageString)
+        } else {
+            fullImageUrl = nil
+        }
 
         subredditNamePrefixed = try dataContainer.decode(String.self, forKey: .subredditNamePrefixed)
         created = try dataContainer.decode(TimeInterval.self, forKey: .created)
         numComments = try dataContainer.decode(Int.self, forKey: .numComments)
+        name = try dataContainer.decode(String.self, forKey: .name)
     }
 }
 

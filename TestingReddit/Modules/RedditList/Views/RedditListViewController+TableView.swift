@@ -35,7 +35,7 @@ extension RedditTopListViewController : UITableViewDelegate, UITableViewDataSour
         
         if indexPath.section == 0 && indexPath.row == lastRowIndex {
             
-            viewModel?.requestNextRedditTopList()
+            viewModel?.requestServiceRedditTopList(after: posts[lastRowIndex].name)
         }
     }
     

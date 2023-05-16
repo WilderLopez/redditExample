@@ -61,7 +61,13 @@ class PostTableViewCell: UITableViewCell {
             return
         }
         
-        thumbnailImageView.sd_setImage(with: url, placeholderImage: nil)
+        thumbnailImageView.sd_setImage(with: url, placeholderImage: nil) { [weak self] image, error, _, _ in
+            if let error {
+                self?.widthImageConstraint.constant = 0
+                self?.heightImageConstraint.constant = 0
+                debugPrint("Unable to load image: \(error)")
+            }
+        }
         thumbnailImageView.sd_imageTransition = .fade(duration: 0.5)
         thumbnailImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
     }

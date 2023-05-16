@@ -16,7 +16,11 @@ class RedditTopListViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     
     //list of post
-    var posts: [Post] = []
+    var posts: [Post] = []{
+        didSet {
+            title = "Reddit Top \(posts.count)"
+        }
+    }
     
     private var isLandscape = false
     
@@ -31,13 +35,17 @@ class RedditTopListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshList), for: .valueChanged)
         tableView.refreshControl = refreshControl
         
+        let saveAllButton = UIBarButtonItem(title: "Save All", style: .plain, target: self, action: #selector(saveAllButtonTapped))
+        navigationItem.rightBarButtonItem = saveAllButton
+        
+        
         viewModel = .init(delegate: self)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel?.requestNextRedditTopList()
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        viewModel?.requestServiceRedditTopList()
+        viewModel?.loadLocalPost()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -61,6 +69,11 @@ class RedditTopListViewController: UIViewController {
         viewModel?.refreshRedditTopList()
     }
     
+    @objc func saveAllButtonTapped() {
+        guard posts.count > 0 else { return }
+        viewModel?.saveToCoreData(post: posts)
+    }
+    
     
     //MARK: Navigation Segue
     
@@ -75,6 +88,18 @@ class RedditTopListViewController: UIViewController {
 }
 
 extension RedditTopListViewController : RedditTopListViewModelProtocol {
+    func didResponseLocal(posts: [Post]) {
+        if posts.isEmpty {
+            viewModel?.requestServiceRedditTopList()
+        }else {
+            self.posts.removeAll()
+            self.posts.append(contentsOf: posts)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func didResponseTopList(posts: [Post], isRefreshed: Bool = false) {
         if isRefreshed {
             self.posts.removeAll()
@@ -83,6 +108,18 @@ extension RedditTopListViewController : RedditTopListViewModelProtocol {
         self.posts.append(contentsOf: posts)
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func saveData(success: Bool) {
+        if success {
+            let alert = UIAlertController(title: "Saved", message: "Posts saved successfully", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alert, animated: true)
+        }else {
+            let alert = UIAlertController(title: "Error", message: "Unable to save data", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alert, animated: true)
         }
     }
 }
