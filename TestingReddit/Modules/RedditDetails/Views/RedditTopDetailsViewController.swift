@@ -17,6 +17,9 @@ class RedditTopDetailsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var fullImageView: UIImageView!
     
+    //constraint
+    @IBOutlet weak var heightImageConstraing: NSLayoutConstraint!
+    
     //Injected Dependency
     var viewModel: RedditTopDetailsViewModel?
     
@@ -30,6 +33,15 @@ class RedditTopDetailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         viewModel?.requestPostDetails()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if UIDevice.current.orientation.isLandscape {
+            heightImageConstraing.constant = 325
+        } else {
+            heightImageConstraing.constant = 225
+        }
     }
     
     

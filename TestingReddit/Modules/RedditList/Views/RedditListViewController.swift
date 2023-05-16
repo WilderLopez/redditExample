@@ -23,7 +23,6 @@ class RedditTopListViewController: UIViewController {
     //MARK: Cyclelife
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,13 +44,10 @@ class RedditTopListViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
 
         let animationHandler: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { [weak self] (context) in
-            // This block will be called several times during rotation,
-            // so if you want your tableView change more smooth reload it here too.
             self?.tableView.reloadData()
         }
 
         let completionHandler: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { [weak self] (context) in
-            // This block will be called when rotation will be completed
             self?.tableView.reloadData()
         }
 
@@ -64,21 +60,6 @@ class RedditTopListViewController: UIViewController {
     @objc func refreshList(_ sender: UIRefreshControl) {
         viewModel?.refreshRedditTopList()
     }
-    
-//    @objc func orientationDidChange() {
-//        switch UIDevice.current.orientation {
-//        case .landscapeLeft, .landscapeRight :
-//            isLandscape = true
-//            break
-//
-//        case .portrait, .portraitUpsideDown:
-//            isLandscape = false
-//            break
-//
-//        default :
-//            break //not supported
-//        }
-//    }
     
     
     //MARK: Navigation Segue
