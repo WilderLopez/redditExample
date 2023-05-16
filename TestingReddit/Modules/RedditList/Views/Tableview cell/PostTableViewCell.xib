@@ -11,33 +11,26 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" restorationIdentifier="PostTableViewCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostTableViewCellID" rowHeight="257" id="KGk-i7-Jjw" customClass="PostTableViewCell" customModule="TestingReddit" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="413" height="257"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="413" height="257"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TyQ-qa-LIZ">
-                        <rect key="frame" x="8" y="31.666666666666671" width="289" height="162.33333333333331"/>
+                        <rect key="frame" x="8" y="32" width="289" height="162"/>
                         <string key="text">NEW 10KG SUMMER/GYM HAUL TO ITALY!! [LEVIS 501, J4, IPHONE CASE, CARHARTT DOUBLE KNEE, PHANTOM BLACK TRAVIS SCOTT, YEEZY SLIDES, VW BRACELET, NIKE NBA TANKTOP, NEVER BROKE AGAIN VLONE, AFTER HOURS THE WEEKND VLONE, DIESEL BELT, INTER JERSEY]</string>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ydh-Aq-VeY">
-                        <rect key="frame" x="305" y="31.666666666666671" width="100" height="80"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="100" id="cbh-KU-XVk"/>
-                            <constraint firstAttribute="height" constant="80" id="ydA-rf-m80"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="r/facepalma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21m-dW-Rdu">
-                        <rect key="frame" x="8" y="7.9999999999999991" width="71" height="15.666666666666664"/>
+                        <rect key="frame" x="8" y="8" width="71" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Posted by u/Wilder_2 21 hours ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5e-Mb-Kk4">
-                        <rect key="frame" x="87" y="7.9999999999999991" width="220" height="15.666666666666664"/>
+                        <rect key="frame" x="87" y="8" width="220" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
@@ -56,6 +49,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ydh-Aq-VeY">
+                        <rect key="frame" x="305" y="32" width="100" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="cbh-KU-XVk"/>
+                            <constraint firstAttribute="height" constant="80" id="ydA-rf-m80"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="fFZ-6p-jre" secondAttribute="bottom" constant="8" id="0YL-0C-kzu"/>
@@ -66,6 +66,8 @@
                     <constraint firstItem="21m-dW-Rdu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="M1v-yj-MfW"/>
                     <constraint firstItem="fFZ-6p-jre" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TyQ-qa-LIZ" secondAttribute="bottom" constant="8" id="ODP-3y-TVy"/>
                     <constraint firstItem="Fvv-1R-hHc" firstAttribute="leading" secondItem="fFZ-6p-jre" secondAttribute="trailing" constant="8" id="RXC-k6-DGw"/>
+                    <constraint firstItem="21m-dW-Rdu" firstAttribute="top" secondItem="t5e-Mb-Kk4" secondAttribute="top" id="Spy-p6-XgO"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ydh-Aq-VeY" secondAttribute="bottom" constant="8" id="Tve-10-ch2"/>
                     <constraint firstItem="TyQ-qa-LIZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="WII-sk-b3K"/>
                     <constraint firstItem="TyQ-qa-LIZ" firstAttribute="top" secondItem="t5e-Mb-Kk4" secondAttribute="bottom" constant="8" id="bNp-db-V4c"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t5e-Mb-Kk4" secondAttribute="trailing" constant="8" id="beE-uk-P1W"/>
@@ -73,14 +75,17 @@
                     <constraint firstItem="fFZ-6p-jre" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="dyp-nb-J2u"/>
                     <constraint firstItem="t5e-Mb-Kk4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="iAC-QH-WCl"/>
                     <constraint firstItem="21m-dW-Rdu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="mDs-I5-Fpf"/>
+                    <constraint firstItem="21m-dW-Rdu" firstAttribute="bottom" secondItem="t5e-Mb-Kk4" secondAttribute="bottom" id="qlr-PR-PwV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="heightImageConstraint" destination="ydA-rf-m80" id="lJ0-97-jK8"/>
                 <outlet property="numComments" destination="Fvv-1R-hHc" id="ihf-MV-g7E"/>
                 <outlet property="postedLabel" destination="t5e-Mb-Kk4" id="Gva-6x-a2F"/>
                 <outlet property="subredditLabel" destination="21m-dW-Rdu" id="BcE-30-R3l"/>
                 <outlet property="thumbnailImageView" destination="ydh-Aq-VeY" id="KDh-0K-Mtz"/>
                 <outlet property="titleLable" destination="TyQ-qa-LIZ" id="DJV-4O-O4c"/>
+                <outlet property="widthImageConstraint" destination="cbh-KU-XVk" id="YsE-H2-yeU"/>
             </connections>
             <point key="canvasLocation" x="180.91603053435114" y="95.422535211267615"/>
         </tableViewCell>

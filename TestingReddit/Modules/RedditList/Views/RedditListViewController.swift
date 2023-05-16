@@ -18,6 +18,9 @@ class RedditTopListViewController: UIViewController {
     //list of post
     var posts: [Post] = []
     
+    private var isLandscape = false
+    
+    //MARK: Cyclelife
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,13 +38,48 @@ class RedditTopListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.requestNextRedditTopList()
-    }
 
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        let animationHandler: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { [weak self] (context) in
+            // This block will be called several times during rotation,
+            // so if you want your tableView change more smooth reload it here too.
+            self?.tableView.reloadData()
+        }
+
+        let completionHandler: ((UIViewControllerTransitionCoordinatorContext) -> Void) = { [weak self] (context) in
+            // This block will be called when rotation will be completed
+            self?.tableView.reloadData()
+        }
+
+        coordinator.animate(alongsideTransition: animationHandler, completion: completionHandler)
+
+    }
+    
+    //MARK: Methods
     
     @objc func refreshList(_ sender: UIRefreshControl) {
-        posts.removeAll()
         viewModel?.refreshRedditTopList()
     }
+    
+//    @objc func orientationDidChange() {
+//        switch UIDevice.current.orientation {
+//        case .landscapeLeft, .landscapeRight :
+//            isLandscape = true
+//            break
+//
+//        case .portrait, .portraitUpsideDown:
+//            isLandscape = false
+//            break
+//
+//        default :
+//            break //not supported
+//        }
+//    }
+    
     
     //MARK: Navigation Segue
     

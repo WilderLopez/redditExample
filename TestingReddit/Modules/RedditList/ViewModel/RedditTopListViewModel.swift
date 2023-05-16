@@ -33,7 +33,8 @@ class RedditTopListViewModel {
     }
     
     private func loadRedditTopList(page: Int = 0, needRefresh: Bool = false) {
-        NetworkManager.shared.getTopPosts(for: "", page: page, limit: 25) { [weak self] result in
+        debugPrint("request page \(page)")
+        NetworkManager.shared.getTopPosts(for: "", page: page, limit: 50) { [weak self] result in
             switch result {
             case .success(let posts):
                 self?.delegate?.didResponseTopList(posts: posts, isRefreshed: needRefresh)

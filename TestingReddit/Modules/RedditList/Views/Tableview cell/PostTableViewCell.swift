@@ -18,7 +18,9 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var subredditLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     
-    
+    //Image constraints
+    @IBOutlet weak var widthImageConstraint: NSLayoutConstraint!
+    @IBOutlet weak var heightImageConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +32,23 @@ class PostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func changeDeviceOrientation(isLandscape: Bool){
+        if isLandscape {
+            widthImageConstraint.constant = 200
+//            widthImageConstraint.isActive = true
+            
+            heightImageConstraint.constant = 130
+//            heightImageConstraint.isActive = true
+        }else {
+            widthImageConstraint.constant = 100
+//            widthImageConstraint.isActive = true
+            
+            heightImageConstraint.constant = 80
+//            heightImageConstraint.isActive = true
+        }
+    }
+
     
     override func prepareForReuse() {
         thumbnailImageView.sd_cancelCurrentImageLoad()

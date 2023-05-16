@@ -24,6 +24,7 @@ extension RedditTopListViewController : UITableViewDelegate, UITableViewDataSour
         
         //load thumbnails
         cell.loadThumbnailImage(url: posts[row].thumbnailUrl)
+        cell.changeDeviceOrientation(isLandscape: UIDevice.current.orientation.isLandscape)
         
         return cell
     }
